@@ -1,0 +1,5 @@
+SRV2-DT:
+  docker run -d -p 80:80 --restart=always --name web localhost:5000/web:1.0
+proverka:
+  docker ps
+  curl localhost
