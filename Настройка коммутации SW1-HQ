@@ -7,6 +7,9 @@ echo "nameserver 77.88.8.8" > /etc/resolv.conf
 apt-get update && apt-get install -y openvswitch
 systemctl enable --now openvswitch
 reboot
+    ens19 - интерфейс в сторону R-HQ;
+    ens20 - интерфейс в сторону SW2-HQ;
+    ens21 - интерфейс в сторону SW3-HQ.
 ENS20-21
 mkdir /etc/net/ifaces/ens2{0,1}
 mc
