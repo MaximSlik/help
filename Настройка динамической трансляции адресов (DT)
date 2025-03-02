@@ -1,1 +1,13 @@
+r-dt#configure terminal
+r-dt(config)#interface isp
+r-dt(config-if)#ip nat outside
+r-dt(config-if)#exit
 
+r-dt(config)#interface int1
+r-dt(config-if)#ip nat inside
+r-dt(config-if)#exit
+
+r-dt(config)#ip nat pool LOCAL-DT 192.168.33.1-192.168.33.254
+
+r-dt(config)#ip nat source dynamic inside pool LOCAL-DT overload 172.16.4.14
+r-dt(config)#write
