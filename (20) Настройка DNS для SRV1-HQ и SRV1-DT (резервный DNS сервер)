@@ -1,2 +1,5 @@
 SRV1-DT:
   echo "nameserver 77.88.8.8" > /etc/resolv.conf
+  apt-get update && apt-get install -y bind bind-utils
+  vim /etc/bind/options.conf
+    listen-
