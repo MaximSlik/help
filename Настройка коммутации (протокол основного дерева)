@@ -1,0 +1,9 @@
+SW1-HQ:
+  ovs-vsctl set bridge SW1-HQ stp_enable=true
+  ovs−vsctl set bridge SW1-HQ other_config:stp-priority=16384
+SW2-HQ:
+  ovs-vsctl set bridge SW2-HQ stp_enable=true
+  ovs−vsctl set bridge SW2-HQ other_config:stp-priority=24576
+SW3-HQ:
+  ovs-vsctl set bridge SW3-HQ stp_enable=true
+  ovs−vsctl set bridge SW3-HQ other_config:stp-priority=28672
