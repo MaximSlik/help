@@ -1,0 +1,24 @@
+R-DT:
+r-dt#configure terminal
+r-dt(config)#router ospf 1
+r-dt(config-router)#default-information originate 
+r-dt(config-router)#exit
+r-dt(config)#  write
+r-dt(config)#
+FW-DT:
+  В веб-интерфейсе FW-DT с ADMIN-DT переходим в модуль "Сервисы" в раздел "OSPF" на вкладку "ДОПОЛНИТЕЛЬНО" и снимаем чек-боксы с "функционала", который не требуется по заданию:
+  Для настройки "OSPF" переходим на вкладку "ОСНОВНЫЕ" и нажимаем "Добавить:
+  Интерфейс = Clients
+  Название зоны = 0
+  Вес = 50
+И так для всех: R-DT, Administators, Servers
+Проверка:
+  Управление сервером -> Терминал:
+  vtysh
+  sh ip ospf neighbor
+  ping 77.88.8.8
+А в результате вывода команды show runnin-config:
+присутствует информация, которая не была целенаправлена задана через веб-интерфейс FW-DT
+Тогда переходим в конфигурационный файл /etc/frr/frr.conf (например используя текстовый редактор vi) и удаляем данный блок
+После чего необходимо перезагрузить службу frr:
+systemctl restart frr
