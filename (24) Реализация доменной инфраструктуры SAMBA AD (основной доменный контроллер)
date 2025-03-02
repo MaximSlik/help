@@ -1,0 +1,27 @@
+SRV1-HQ:
+  apt-get install task-samba-dc -y
+  control bind-chroot disabled
+  grep -q KRB5RCACHETYPE /etc/sysconfig/bind || echo 'KRB5RCACHETYPE="none"' >> /etc/sysconfig/bind
+  grep -q 'bind-dns' /etc/bind/named.conf || echo 'include "/var/lib/samba/bind-dns/named.conf";' >> /etc/bind/named.conf
+Отредактируем файл /etc/bind/options.conf:
+    options {
+      version "unknown";
+      directory "/etc/bind/zone";
+      dump-file "/var/run/named/named_dump.db";
+      statistics-file "/var/run/named/named.stats";
+      recursing-file "/var/run/named/named.recursing";
+      secroots-file "/var/run/named/named.secroots":
+      tkey-gssapi-keytab "/var/lib/samba/bind-dns/dns.keytab";
+      minimal-responses yes
+    logging {
+      category lame-servers { null; };
+
+  systemctl stop bind
+  rm -f /etc/samba/smb.conf
+  rm -rf /var/lib/samba
+  rm -rf /var/cache/samba
+  mkdir -p /var/lib/samba/sysvol\
+  samba-tool domain provision
+  systemctl enable --now samba
+  systemctl start bind
+  cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
