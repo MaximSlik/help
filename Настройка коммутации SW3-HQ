@@ -17,3 +17,22 @@ mc
 cp /etc/net/ifaces/ens20/options /etc/net/ifaces/ens21/
 Также важно, чтобы и для ens19 в файле options параметр BOOTPROTO имел значение static:
     (sed -i "s/BOOTPROTO=dhcp/BOOTPROTO=static/g" /etc/net/ifaces/ens19/options)
+systemctl restart network
+ovs-vsctl add-br SW3-HQ
+mkdir /etc/net/ifaces/MGMT
+MC
+    {/etc/net/ifaces/MGMT/options
+    TYPE=ovsport
+    BOOTPROTO=static
+    CONFIG_IPV4=yes
+    BRIDGE=SW3-HQ
+    VID=330}
+echo "192.168.11.84/29" > /etc/net/ifaces/MGMT/ipv4address
+echo "default via 192.168.11.81" > /etc/net/ifaces/MGMT/ipv4route
+sed -i "s/OVS_REMOVE=yes/OVS_REMOVE=no/g" /etc/net/ifaces/default/options
+systemctl restart network
+ovs-vsctl add-port SW3-HQ ens19 trunk=110,220,330
+ovs-vsctl add-port SW3-HQ ens20 trunk=110,220,330
+ovs-vsctl add-port SW3-HQ ens21 tag=330
+modprobe 8021q
+echo "8021q" | tee -a /etc/modules
