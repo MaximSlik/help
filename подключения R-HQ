@@ -1,0 +1,13 @@
+r-hq#configure terminal
+r-hq(config)#interface isp
+r-hq(config-if)#ip address 172.16.5.14/28
+r-hq(config-if)#exit
+r-hq(config)#port te0
+r-hq(config-port)#service-instance te0/isp
+r-hq(config-service-instance)#encapsulation untagged
+r-hq(config-service-instance)#connect ip interface isp
+r-hq(config-service-instance)#exit
+r-hq(config-port)#exit
+rr-hq(config)#ip route 0.0.0.0/0 172.16.5.1
+r-hq(config)#write
+r-hq(config)#
