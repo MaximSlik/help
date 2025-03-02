@@ -1,0 +1,30 @@
+r-hq#configure terminal
+r-hq(config)#ip pool CLI-HQ 192.168.11.2-192.168.11.62
+
+r-hq(config)#dhcp-server 1
+r-hq(config-dhcp-server)#
+
+r-hq(config-dhcp-server)#pool CLI-HQ 1
+r-hq(config-dhcp-server-pool)#
+
+r-hq(config-dhcp-server-pool)#mask 26
+r-hq(config-dhcp-server-pool)#gateway 192.168.11.1
+r-hq(config-dhcp-server-pool)#dns 192.168.11.66,192.168.33.66
+r-hq(config-dhcp-server-pool)#domain-name au.team
+r-hq(config-dhcp-server-pool)#exit
+r-hq(config-dhcp-server)#exit
+r-hq(config)#
+
+r-hq(config)#interface vl110
+r-hq(config-if)#dhcp-server 1
+r-hq(config-if)#exit
+r-hq(config)#write
+r-hq(config)#
+
+CLI-HQ:
+Настраиваем клиента на получение динамических адресов:
+  Использовать DHCP
+
+Terminal:
+  ping -c3 7.88.8.8
+  GOOD, 0% packet lost
