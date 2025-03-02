@@ -1,0 +1,19 @@
+ip link add link ens19 name ens19.330 type vlan id 330
+ip link set dev ens19.330 up
+ip addr add 192.168.11.84/29 dev ens19.330
+ip route add 0.0.0.0/0 via 192.168.11.81
+echo "nameserver 77.88.8.8" > /etc/resolv.conf
+apt-get update && apt-get install -y openvswitch
+systemctl enable --now openvswitch
+reboot
+    ens19 - интерфейс в сторону SW1-HQ
+    ens20 - интерфейс в сторону SW2-HQ
+    ens21 - интерфейс в сторону ADMIN-HQ
+mkdir /etc/net/ifaces/ens2{0,1}
+mc
+  {/etc/net/ifaces/ens20/options
+  TYPE=eth
+  BOOTPROTO=static}
+cp /etc/net/ifaces/ens20/options /etc/net/ifaces/ens21/
+Также важно, чтобы и для ens19 в файле options параметр BOOTPROTO имел значение static:
+    (sed -i "s/BOOTPROTO=dhcp/BOOTPROTO=static/g" /etc/net/ifaces/ens19/options)
