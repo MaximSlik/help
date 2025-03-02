@@ -1,1 +1,36 @@
-
+ENS19
+ip link add link ens name ens19.330 type vlan id 330
+ip link set dev ens19.330 up
+ip addr add 192.168.11.82/29 dev ens19.330
+ip route add 0.0.0.0/0 via 192.168.11.81
+echo "nameserver 77.88.8.8" > /etc/resolv.conf
+apt-get update && apt-get install -y openvswitch
+systemctl enable --now openvswitch
+reboot
+ENS20-21
+mkdir /etc/net/ifaces/ens2{0,1}
+mc
+    {/etc/net/ifaces/ens20/options
+    TYPE=eth
+    BOOTPROTO=static}
+cp /etc/net/ifaces/ens20/options /etc/net/ifaces/ens21/
+Также важно, чтобы и для ens19 в файле options параметр BOOTPROTO имел значение static
+systemctl restart network
+ovs-vsctl add-br SW1-HQ
+mkdir /etc/net/ifaces/MGMT
+mc
+    {/etc/net/ifaces/MGMT/options
+    TYPE=ovsport
+    BOOTPROTO=static
+    CONFIG_IPV4=yes
+    BRIDGE=SW1-HQ
+    VID=330
+echo "192.168.11.82/29" > /etc/net/ifaces/MGMT/ipv4address
+echo "default via 192.168.11.81" > /etc/net/ifaces/MGMT/ipv4route
+sed -i "s/OVS_REMOVE=yes/OVS_REMOVE=no/g" /etc/net/ifaces/default/options
+systemctl restart network
+ovs-vsctl add-port SW1-HQ ens19 trunk=110,220,330
+ovs-vsctl add-port SW1-HQ ens20 trunk=110,220,330
+ovs-vsctl add-port SW1-HQ ens21 trunk=110,220,330
+modprobe 8021q
+echo "8021q" | tee -a /etc/modules
