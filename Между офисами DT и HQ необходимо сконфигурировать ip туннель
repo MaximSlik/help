@@ -1,0 +1,24 @@
+R-DT:
+  r-dt#configure terminal
+  r-dt(config)#  interface tunnel.0
+  r-dt(config-if-tunnel)#description "Connect_HQ-R"
+  r-dt(config-if-tunnel)#ip add 10.10.10.1/30
+  r-dt(config-if-tunnel)#ip mtu 1476
+  r-dt(config-if-tunnel)#ip tunnel 172.16.4.14 172.16.5.14 mode gre
+  r-dt(config-if-tunnel)#end
+  r-dt#write
+  r-dt#
+
+R-HQ:
+  r-hq#configure terminal
+  r-hq(config)#  interface tunnel.0
+  r-hq(config-if-tunnel)#description "Connect_DT-R"
+  r-hq(config-if-tunnel)#ip add 10.10.10.2/30
+  r-hq(config-if-tunnel)#ip mtu 1476
+  r-hq(config-if-tunnel)#ip tunnel 172.16.5.14 172.16.4.14 mode gre
+  r-hq(config-if-tunnel)#end
+  r-hq#write
+  r-hq#
+
+total:
+  ping 10.10.10.1
