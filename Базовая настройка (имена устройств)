@@ -1,0 +1,10 @@
+Хост name для alt server:
+  hostnamectl set-hostname <ИМЯ_ВМ>.<ДОМЕННОЕ_ИМЯ>; exec bash
+  hostnamectl set-hostname sw*-hq.au.team; exec bash
+Хост name для EcoRouter:
+  ecorouter>enable
+  ecorouter#configure
+  ecorouter(config)#hostname r-hq
+  r-hq(config)#ip domain-name au.team
+  r-hq(config)#write
+  Building configuration...
