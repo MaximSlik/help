@@ -1,0 +1,25 @@
+SRV1-DT:
+apt-get update && apt-get install -y nginx
+mc
+  /etc/nginx/sites-available.d/proxy.conf
+  {server {
+          listen 80;
+          server_name wwww.au.team;
+          location / {
+                     proxy_pass http://192.168.33.67; 
+                     }
+          }
+   server {
+          listen 80;
+          server_name zabbix.au.team;
+          location / {
+                     proxy_pass http://192.168.33.68/zabbix/; 
+                     }
+          } 
+  }
+ln -s /etc/nginx/sites-available.d/proxy.conf /etc/nginx/sites-enabled.d/
+nginx -t
+systemctl enable --now nginx
+Проверяем:
+http://www.au.team
+http://zabbix.au.team
