@@ -1,0 +1,16 @@
+Для SW1-HQ | SW2-HQ | SW3-HQ | SRV1-DT | SRV2-DT | SRV3-DT:
+mc
+  /etc/chrony.conf
+  {server 192.168.11.66 iburst prefer}
+systemctl restart chronyd
+Для ADMIN-HQ | ADMIN-DT | CLI-HQ | CLI-DT:
+  Заходим в ЦУС, NTP-сервер, {Галочка в "Получать время с NTP" (192.168.11.66)}, {Галочка в "Хранить время в BIOS"}
+Для R-HQ | R-DT:
+r-hq#configure terminal
+r-hq(config)#ntp server 192.168.11.66
+r-hq(config)#ntp timezone UTC+3
+r-hq(config)#write
+r-hq(config)#
+Для FW-DT:
+  Сервисы-->NTP-сервер-->Добавить-->IP-192.168.11.66
+Проверка на srv1-hq: chronyc clients
