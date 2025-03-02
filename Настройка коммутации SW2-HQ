@@ -17,3 +17,5 @@ mc
   BOOTPROTO=static}
 cp /etc/net/ifaces/ens20/options /etc/net/ifaces/ens21/
 cp /etc/net/ifaces/ens20/options /etc/net/ifaces/ens22/
+Также важно, чтобы для ens19 в файле options параметр BOOTPROTO имел значение static:
+        (sed -i "s/BOOTPROTO=dhcp/BOOTPROTO=static/g" /etc/net/ifaces/ens19/options)
