@@ -1,0 +1,13 @@
+r-dt#configure terminal
+r-dt(config)#interface isp
+r-dt(config-if)#ip address 172.16.4.14/28
+r-dt(config-if)#exit
+r-dt(config)#port te0
+r-dt(config-port)#service-instance te0/isp
+r-dt(config-service-instance)#encapsulation untagged
+r-dt(config-service-instance)#connect ip interface isp
+r-dt(config-service-instance)#exit
+r-dt(config-port)#exit
+r-dt(config)#ip route 0.0.0.0/0 172.16.4.1
+r-dt(config)#write
+r-dt(config)#
