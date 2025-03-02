@@ -16,3 +16,5 @@ SRV1-DT:
   EOF
   systemctl restart network
   systemctl enable --now bind
+total:
+  ping -c3 ya.ru
