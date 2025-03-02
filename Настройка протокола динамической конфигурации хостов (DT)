@@ -1,0 +1,21 @@
+r-dt#configure terminal
+r-dt(config)#ip pool CLI-DT 192.168.33.2-192.168.33.62
+r-dt(config)#dhcp-server 1
+r-dt(config-dhcp-server)#pool CLI-DT 1
+r-dt(config-dhcp-server-pool)#mask 26
+r-dt(config-dhcp-server-pool)#gateway 192.168.33.1
+r-dt(config-dhcp-server-pool)#dns 192.168.33.66,192.168.11.66
+r-dt(config-dhcp-server-pool)#domain-name au.team
+r-dt(config-dhcp-server-pool)#exit
+r-dt(config-dhcp-server)#exit
+r-dt(config)#interface int1
+r-dt(config-if)#dhcp-server 1
+r-dt(config-if)#exit
+r-dt(config)#write
+r-dt(config)#
+
+FW-DT:
+Настраиваем DHCP Relay:
+  В веб-интерфейсе FW-DT с ADMIN-DT переходим в модуле "Сервисы" в раздел "DHCP-сервер" и нажимаем "Добавить":
+    Интерфейс = Clients
+    IP = 192.168.33.89
