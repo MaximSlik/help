@@ -40,3 +40,7 @@ R-DT:
   r-dt(config-if-tunnel)#exit
   r-dt(config)#write
   r-dt(config)#
+
+total:
+r-dt#show ip ospf neighbor
+  r-dt#show ip route ospf
