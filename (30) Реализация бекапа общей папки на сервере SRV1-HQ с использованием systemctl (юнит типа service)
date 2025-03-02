@@ -1,0 +1,19 @@
+SRV1-HQ:
+  mkdir /var/bac/
+  vim /etc/systemd/system/backup.service
+    [Unit]
+    Description=Backup /opt/data
+    [Service]
+    Type=oneshot
+    ExecStart=/bin/tar -czf "/var/bac/SAMBA.tar.gz" /opt/data
+    [Install]
+    WantedBy=multi-user.target
+  systemctl daemon-reload
+  systemctl enable --now backup.service
+
+
+
+
+
+
+
