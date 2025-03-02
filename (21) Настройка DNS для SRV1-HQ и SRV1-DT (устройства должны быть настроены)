@@ -1,0 +1,34 @@
+SRV2-DT | SRV3-DT | ADMIN-DT:
+  cat <<EOF > /etc/net/ifaces/ens19/resolv.conf
+    search au.team
+    nameserver 192.168.33.66
+    nameserver 192.168.11.66
+  EOF
+  systemctl restart network
+SW1-HQ | SW2-HQ | SW3-HQ:
+  cat <<EOF > /etc/net/ifaces/MGMT/resolv.conf
+    search au.team
+    nameserver 192.168.11.66
+    nameserver 192.168.33.66
+  EOF
+  systemctl restart network
+ADMIN-HQ:
+  cat <<EOF > /etc/net/ifaces/ens19/resolv.conf
+    search au.team
+    nameserver 192.168.11.66
+    nameserver 192.168.33.66
+  EOF
+  systemctl restart network
+R-HQ:
+  r-hq#configure terminal
+  r-hq(config)#ip name-server 192.168.11.66 192.168.33.66
+  r-hq(config)#ip domain-name au.team
+  r-hq(config)#write
+  r-hq(config)#
+
+R-DT:
+  r-dt#configure terminal
+  r-dt(config)#ip name-server 192.168.33.66 192.168.11.66
+  r-dt(config)#ip domain-name au.team
+  r-dt(config)#write
+  r-dt(config)#
