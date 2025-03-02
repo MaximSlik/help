@@ -1,0 +1,19 @@
+Для SRV1-DT | SRV2-DT | SRV3-DT | SW1-HQ | SW2-HQ | SW3-HQ | SRV1-HQ:
+useradd sshuser -m -U -s /bin/bash
+grep sshuser /etc/passwd
+passwd sshuser
+    пароль P@ssw0rd
+Для R-DT | R-HQ:
+r-hq#configure terminal
+r-hq(config)#username sshuser
+r-hq(config-user)#password P@ssw0rd
+r-hq(config-user)#role admin 
+r-hq(config-user)#exit
+r-hq(config)#write
+r-hq(config)#
+Для CLI | ADMIN-DT | CLI-DT | ADMIN-HQ | CLI-HQ:
+  Заходим в Центр управления системой
+  Локальные учётные записи--> Создаём пользователя sshuser
+                              {Галочка на (Входит в гр. админ.)    пароль P@ssw0rd    }
+apt-get update && apt-get install -y sudo
+echo "sshuser ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
