@@ -1,0 +1,16 @@
+ADMIN-DT:
+cd /etc/ansible
+mkdir group_vars
+cd /etc/ansible/group_vars
+vim Networking.yml
+    {
+     ansible_connection: network_cli
+     ansible_network_os: ios
+    }
+vim all.yml
+    {
+     ansible_ssh_user: sshuser
+     ansible_ssh_pass: P@ssw0rd
+     ansible_python_interpreter: /usr/bin/python3
+    }
+Проверка: ansible -m ping all
