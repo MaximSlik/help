@@ -1,0 +1,12 @@
+SRV2-DT:
+  vim Dockerfile
+    FROM nginx:alpine
+    COPY index.html /usr/share/nginx/html
+  vim index.html
+    <html>
+      <body>
+        <center><h1><b>WEB</b></h1></center>
+      </body>
+    </html>
+docker build -t localhost:5000/web:1.0 .
+docker push localhost:5000/web:1.0
