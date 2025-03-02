@@ -1,0 +1,14 @@
+SRV1-HQ:
+mkdir /opt/data
+chmod 777 /opt/data
+mc 
+  /etc/samba/smb.conf
+  {[SAMBA]
+          path = /opt/data
+          comment = "SAMBA"
+          public = yes
+          writable = yes
+          browseable = yes
+          guest ok = yes
+systemctl restart samba
+Проверка: smbclient -L localhost -U administrator
