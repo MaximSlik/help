@@ -1,0 +1,8 @@
+ADMIN-HQ, CLI-HQ, ADMIN-DT, CLI-DT:
+Заходим в ЦУС--> Аутентификации (В ветке "Пользователи")-->Домен Active Directoryy--> Применить--> Пароль и т.д.
+SRV1-HQ:
+samba-tool computer list
+samba-tool computer move ADMIN-DT 'OU=ADMIN,DC=au,DC=team'
+samba-tool computer move ADMIN-HQ 'OU=ADMIN,DC=au,DC=team'
+samba-tool computer move CLI-DT 'OU=CLI,DC=au,DC=team'
+samba-tool computer move CLI-HQ 'OU=CLI,DC=au,DC=team'
