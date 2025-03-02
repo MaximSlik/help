@@ -42,5 +42,7 @@ R-DT:
   r-dt(config)#
 
 total:
-r-dt#show ip ospf neighbor
+  r-hq#show ip ospf neighbor
+  r-hq#show ip route ospf
+  r-dt#show ip ospf neighbor
   r-dt#show ip route ospf
