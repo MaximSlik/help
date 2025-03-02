@@ -1,0 +1,25 @@
+SRV1-DT | SRV2-DT | SRV3-DT | SRV1-HQ:
+  apt-get install zabbix-agent -y
+  vim /etc/zabbix/zabbix_agentd.conf
+    Server=192.168.33.68
+    ServerActive=192.168.33.68
+    Hostname=srv1-hq.au.team
+  systemctl enable --now zabbix_agentd.service
+Аналогично для всех остальных устройств:  SRV1-DT, SRV2-DT, SRV3-DT
+Каждый хост необходимо зарегистрировать на сервере Zabbix, сделать это можно, используя веб-интерфейс
+Переходим Monitoring -> Hosts -> Create host:
+Заполняем поля для добавления нового хоста:
+  Hostname - srv1-hq.au.team
+  Visible name - srv1-hq.au.team
+  Templates - Linux by Zabbix agent
+  Groups - Linux servers
+  Agent - 192.168.11.66    srv1-hq.au.team    DNS    10050 >  Add
+  Add
+Аналогично для всех остальных устройств:  SRV1-DT, SRV2-DT, SRV3-DT
+
+
+
+
+
+
+
