@@ -1,18 +1,19 @@
 SRV1-HQ:
-echo "nameserver 77.88.8.8" > /etc/resolv.conf
-apt-get update && apt-get install -y bind bind-utils
-vim /etc/bind/options.conf
-  listen-on { 127.0.0.1; 192.168.11.66; };
-  listen-on-v6 { any };
-  forwarders { 77.88.8.8; };
-  allow-query { 192.168.11.0/24; 192.168.33.0/24; };
-  allow-transfer { 192.168.33.66; };
-systemctl enable --now bind
-cat <<EOF > /etc/net/ifaces/ens19/resolv.conf
-  search au.team
-  nameserver 192.168.11.66
-EOF
-systemctl restart network
-systemctl restart bind
+  echo "nameserver 77.88.8.8" > /etc/resolv.conf
+  apt-get update && apt-get install -y bind bind-utils
+  vim /etc/bind/options.conf
+    listen-on { 127.0.0.1; 192.168.11.66; };
+    listen-on-v6 { any };
+    forwarders { 77.88.8.8; };
+    allow-query { 192.168.11.0/24; 192.168.33.0/24; };
+    allow-transfer { 192.168.33.66; };
+
+  systemctl enable --now bind
+  cat <<EOF > /etc/net/ifaces/ens19/resolv.conf
+    search au.team
+    nameserver 192.168.11.66
+  EOF
+  systemctl restart network
+  systemctl restart bind
 total:
   ping -c3 ya.ru
