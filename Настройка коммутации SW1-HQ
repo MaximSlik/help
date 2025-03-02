@@ -18,6 +18,7 @@ mc
     BOOTPROTO=static}
 cp /etc/net/ifaces/ens20/options /etc/net/ifaces/ens21/
 Также важно, чтобы и для ens19 в файле options параметр BOOTPROTO имел значение static
+        (sed -i "s/BOOTPROTO=dhcp/BOOTPROTO=static/g" /etc/net/ifaces/ens19/options)
 systemctl restart network
 ovs-vsctl add-br SW1-HQ
 mkdir /etc/net/ifaces/MGMT
