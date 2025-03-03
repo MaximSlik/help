@@ -1,0 +1,44 @@
+int int int1
+desribition "Connect_FW-DT"
+ip addr 192.168.33.89/30
+dhcp-server 1
+port te1
+service-instnce te1/int1
+enc untugged
+connect ip int int1
+write
+int isp
+ip addr 172.16.4.14/28
+port te0
+service-instance enc untugged
+connect ip int isp
+ip route 0.0.0.0/0 172.16.4.1
+write
+int isp 
+ip nat outside
+int int1
+ip nat inside
+ex
+ip nat pool LOCAL-DT 192.168.33.1-192.168.33.254
+ip nat source dynamic inside pool LOCAL-DT 172.16.4.14
+write
+ip pool Cli-DT 192.168.33.2-192.168.33.62
+dhcp-server 1
+pool CLI-DT 1
+mask1
+gateway 192.168.33.1
+dns 192.168.33.66, 192.168.11.66
+int tunnel.0
+description "Connect_HQ-R"
+ip addr 10.10.10.1/30
+ip mtu 1476
+ip tunnel 172.16.4.14 172.16.4.15 mode gre
+route ospf 1
+default-information originate
+write
+username sshuser 
+password P@ssw0rd
+role admin
+write
+ntp-server 192.168.11.66
+ntp timezone UTC+3
