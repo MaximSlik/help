@@ -1,4 +1,4 @@
-int int int1
+int int1
 descriptiion  "Connect_FW-DT"
 ip addr 192.168.33.89/30
 dhcp-server 1
