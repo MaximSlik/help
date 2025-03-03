@@ -1,5 +1,5 @@
 int int int1
-desribition "Connect_FW-DT"
+descriptiion  "Connect_FW-DT"
 ip addr 192.168.33.89/30
 dhcp-server 1
 port te1
