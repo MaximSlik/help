@@ -36,3 +36,8 @@ modprobe 8021q
 write
 ovs-vctl set bridge SW2-HQ stp_enable=true
 ovs-vsctl set bridge SW2-HQ other_config: stp-priority=24576
+useradd sshuser -m -U -s /bin/bash
+grep sshuser /etc/passwd
+passwd sshuser
+usermod -aG wheel sshuser
+echo "sshuser ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
