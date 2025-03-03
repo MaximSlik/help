@@ -1,4 +1,3 @@
-SW1-HQ
 ip link add link enp7s1 name enp7s1.330 type vlan id 330
 ip link set dev enp7s1.330 up
 ip addr add 192.168.11.82/29 dev enp7s1.330
