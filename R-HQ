@@ -1,0 +1,67 @@
+R-HQ
+conf t
+int vl 110
+descriptiion "Clients"
+ip addr 192.168.11.1/26
+dhcp-server 1
+int vl220
+description "Servers"
+ip addr 192.168.11.65/28
+int vl330
+description "Administators"
+ip addr 192.168.11.81/29
+write
+port te1
+service-instance te1/vl110
+enc dot1q 110 exact
+rewrite pop 1
+connect ip int vl110
+service-instance te1/vl220
+enc do1q 220 exact
+rewrite pop 1
+connect ip int vl 220
+service-instance te1/330
+enc dot1q 330 exact
+rewrit pop 1
+connect ip int vl330
+write
+int isp
+ip addr 172.16.5.14/28
+port te0
+service-instance te0/isp
+enc uuntagged
+connect ip int isp
+ip route 0.0.0.0/0 172.16.5.1 
+write
+int isp
+ip nat outside
+int vl110
+ip nat inside
+int vl220
+ip nat inside
+int vl330
+ip nat inside
+ip nat pool LOCAL-HQ 192.168.11.1-192.168.11.254
+ip nat source dynamic inside pool LOCAL-HQ overload 172.16.5.14
+write
+ip pool CLI-HQ 192.168.11.2-192.168.11.62
+dhcp-server 1
+pool CLI-HQ 1
+mask 26
+gateway 192.168.11.1
+dns 192.168.11.66, 192.169.33.66
+domain-name au.team
+write
+int tunnel.0
+description "Connect_DT-R"
+ip add 10.10.10.2/30
+ip mtu 1476
+ip tunnel 172.16.5.14 172.16.4.14 mode gre
+router ospf 1
+ospf route-id 10.10.10.2
+passive-int default
+network 10.10.10.0 0.0.0.3 area 0
+network 192.168.11.0 0.0.0.63 area 0
+network 192.168.11.64 0.0.0.15 area 0
+network 192.168.11.80 0.0.0.7 area 0
+no passive -int tunnel.0
