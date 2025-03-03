@@ -65,3 +65,10 @@ network 192.168.11.0 0.0.0.63 area 0
 network 192.168.11.64 0.0.0.15 area 0
 network 192.168.11.80 0.0.0.7 area 0
 no passive -int tunnel.0
+username sshuser
+password P@ssword
+role admin
+write
+ntp server 192.168.11.66
+ntp timezone UTC+3
+write
