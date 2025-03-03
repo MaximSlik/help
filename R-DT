@@ -25,7 +25,7 @@ write
 ip pool Cli-DT 192.168.33.2-192.168.33.62
 dhcp-server 1
 pool CLI-DT 1
-mask1
+mask 26
 gateway 192.168.33.1
 dns 192.168.33.66, 192.168.11.66
 int tunnel.0
