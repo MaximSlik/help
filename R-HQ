@@ -59,6 +59,10 @@ network 192.168.11.0 0.0.0.63 area 0
 network 192.168.11.64 0.0.0.15 area 0
 network 192.168.11.80 0.0.0.7 area 0
 no passive -int tunnel.0
+r-dt(config)#interface tunnel.0
+r-dt(config-if-tunnel)#ip ospf authentication message-digest
+r-dt(config-if-tunnel)#ip ospf message-digest-key 1 md5 P@ssw0rd
+r-dt(config-if-tunnel)#exit
 username sshuser
 password P@ssword
 role admin
