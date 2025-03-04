@@ -6,22 +6,18 @@ port te1
 service-instnce te1/int1
 enc untugged
 connect ip int int1
-write
 int isp
 ip addr 172.16.4.14/28
 port te0
 service-instance enc untugged
 connect ip int isp
 ip route 0.0.0.0/0 172.16.4.1
-write
 int isp 
 ip nat outside
 int int1
 ip nat inside
-ex
 ip nat pool LOCAL-DT 192.168.33.1-192.168.33.254
 ip nat source dynamic inside pool LOCAL-DT 172.16.4.14
-write
 ip pool Cli-DT 192.168.33.2-192.168.33.62
 dhcp-server 1
 pool CLI-DT 1
@@ -35,7 +31,6 @@ ip mtu 1476
 ip tunnel 172.16.4.14 172.16.4.15 mode gre
 route ospf 1
 default-information originate
-write
 username sshuser 
 password P@ssw0rd
 role admin
